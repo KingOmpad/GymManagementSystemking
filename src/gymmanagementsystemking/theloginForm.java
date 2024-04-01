@@ -51,6 +51,7 @@ public class theloginForm extends javax.swing.JFrame {
         user_input = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -105,6 +106,15 @@ public class theloginForm extends javax.swing.JFrame {
         jPanel1.add(jButton2);
         jButton2.setBounds(491, 280, 70, 23);
 
+        jLabel1.setText("Dont have account? Sign up");
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
+        jPanel1.add(jLabel1);
+        jLabel1.setBounds(380, 320, 160, 20);
+
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/gymbackground.png"))); // NOI18N
         jLabel6.setText("jLabel6");
         jPanel1.add(jLabel6);
@@ -154,6 +164,12 @@ public class theloginForm extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+       registrationForm rf = new registrationForm();
+       rf.setVisible(true);
+       this.dispose();
+    }//GEN-LAST:event_jLabel1MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -192,6 +208,7 @@ public class theloginForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
