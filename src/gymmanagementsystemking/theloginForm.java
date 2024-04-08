@@ -30,15 +30,31 @@ public class theloginForm extends javax.swing.JFrame {
     dbConnector connect = new dbConnector();
     
     try{
-        String sql="SELECT * FROM table_user WHERE u_username = '"+username+"'AND u_password = '"+password+"'";
+        String sql="SELECT * FROM table_user WHERE u_username = '"+username+"'AND u_password = '"+password+"' AND u_status='Active'";
         ResultSet rs = connect.getData(sql);
         return rs.next();
    }catch(SQLException ex){
     JOptionPane.showMessageDialog(null, "Database Connection failed");
+        System.out.println(""+ex);
     return false;
     }
     }
-    
+    public static String getRole(String username, String password){
+        dbConnector connect = new dbConnector();
+        try{
+            String sql = "SELECT u_account FROM table_user WHERE u_username = '"+username+"'AND u_password = '"+password+"'";
+            ResultSet rs= connect.getData(sql);
+            if(rs.next()){
+                return rs.getString("u_account");
+            }else{
+                return null;
+            }
+            
+        }catch(SQLException ex){
+            System.out.println(""+ex);
+            return null;
+        }
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -55,6 +71,7 @@ public class theloginForm extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(153, 153, 255));
         jPanel1.setLayout(null);
@@ -64,13 +81,14 @@ public class theloginForm extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Username: ");
         jPanel1.add(jLabel2);
-        jLabel2.setBounds(300, 200, 79, 32);
+        jLabel2.setBounds(320, 180, 79, 32);
 
+        jLabel3.setBackground(new java.awt.Color(255, 255, 255));
         jLabel3.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Password: ");
         jPanel1.add(jLabel3);
-        jLabel3.setBounds(300, 240, 79, 30);
+        jLabel3.setBounds(320, 220, 79, 30);
 
         pass_input.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -78,7 +96,7 @@ public class theloginForm extends javax.swing.JFrame {
             }
         });
         jPanel1.add(pass_input);
-        pass_input.setBounds(380, 240, 175, 30);
+        pass_input.setBounds(400, 220, 120, 30);
 
         user_input.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -86,7 +104,7 @@ public class theloginForm extends javax.swing.JFrame {
             }
         });
         jPanel1.add(user_input);
-        user_input.setBounds(380, 200, 175, 32);
+        user_input.setBounds(400, 180, 120, 32);
 
         jButton1.setText("Exit");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -95,7 +113,7 @@ public class theloginForm extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton1);
-        jButton1.setBounds(380, 280, 51, 23);
+        jButton1.setBounds(340, 260, 51, 23);
 
         jButton2.setText("Log-in");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -104,7 +122,7 @@ public class theloginForm extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton2);
-        jButton2.setBounds(491, 280, 70, 23);
+        jButton2.setBounds(450, 260, 70, 23);
 
         jLabel1.setText("Dont have account? Sign up");
         jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -113,24 +131,22 @@ public class theloginForm extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(380, 320, 160, 20);
+        jLabel1.setBounds(350, 300, 160, 20);
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/gymbackground.png"))); // NOI18N
         jLabel6.setText("jLabel6");
         jPanel1.add(jLabel6);
-        jLabel6.setBounds(0, 0, 670, 490);
+        jLabel6.setBounds(0, 0, 610, 490);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 634, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 611, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 392, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -152,18 +168,31 @@ public class theloginForm extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
     
-    if(loginAcc(user_input.getText(),pass_input.getText())){
-    JOptionPane.showMessageDialog(null, "Log in Success");
-        adminDashboard ads = new adminDashboard();
-        ads.setVisible(true);
-        this.dispose();
-    }  else {
-    JOptionPane.showMessageDialog(null, "Log in failed!");
-    }
         
-        
-    }//GEN-LAST:event_jButton2ActionPerformed
+       if(loginAcc(user_input.getText(),pass_input.getText())){
+            String userType = getRole(user_input.getText(),pass_input.getText()); // Assuming getRole returns the role of the user
 
+            if (userType.equals("Admin")) {
+                JOptionPane.showMessageDialog(null,"Admin Login Success!");
+                adminDashboard adb = new adminDashboard();
+                adb.setVisible(true);
+                this.dispose();
+            } else if (userType.equals("Trainor")) {
+                JOptionPane.showMessageDialog(null,"User Login Success!");
+                trainorDashboard tdb = new trainorDashboard();
+                tdb.setVisible(true);
+                this.dispose();
+            
+            }else {
+                JOptionPane.showMessageDialog(null,"Unknown Role! Cannot login."); 
+                return;
+            }
+        } else {
+            JOptionPane.showMessageDialog(null,"Login Failed!");
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+    
+    
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
        registrationForm rf = new registrationForm();
        rf.setVisible(true);
