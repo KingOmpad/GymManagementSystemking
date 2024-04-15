@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gymmanagementsystemking;
+package admin;
 
+import gymmanagementsystemking.*;
 import config.dbConnector;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,12 +15,12 @@ import javax.swing.JOptionPane;
  *
  * @author SCC
  */
-public class registrationForm extends javax.swing.JFrame {
+public class adminRegistration extends javax.swing.JFrame {
 
     /**
      * Creates new form registrationForm
      */
-    public registrationForm() {
+    public adminRegistration() {
         initComponents();
     }
     public static String em, usname;
@@ -85,7 +86,7 @@ public class registrationForm extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         jLabel3.setText("Last name:");
         jPanel1.add(jLabel3);
-        jLabel3.setBounds(140, 130, 80, 20);
+        jLabel3.setBounds(120, 130, 80, 20);
 
         lName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -93,7 +94,7 @@ public class registrationForm extends javax.swing.JFrame {
             }
         });
         jPanel1.add(lName);
-        lName.setBounds(140, 150, 120, 30);
+        lName.setBounds(120, 150, 120, 20);
 
         email.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -101,7 +102,7 @@ public class registrationForm extends javax.swing.JFrame {
             }
         });
         jPanel1.add(email);
-        email.setBounds(140, 200, 120, 30);
+        email.setBounds(120, 190, 120, 20);
 
         fName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -109,7 +110,7 @@ public class registrationForm extends javax.swing.JFrame {
             }
         });
         jPanel1.add(fName);
-        fName.setBounds(140, 100, 120, 30);
+        fName.setBounds(120, 110, 120, 20);
 
         user.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -117,7 +118,7 @@ public class registrationForm extends javax.swing.JFrame {
             }
         });
         jPanel1.add(user);
-        user.setBounds(140, 250, 120, 30);
+        user.setBounds(120, 230, 120, 20);
 
         pass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -125,7 +126,7 @@ public class registrationForm extends javax.swing.JFrame {
             }
         });
         jPanel1.add(pass);
-        pass.setBounds(140, 300, 120, 30);
+        pass.setBounds(120, 270, 120, 20);
 
         accType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Trainor" }));
         accType.addActionListener(new java.awt.event.ActionListener() {
@@ -134,37 +135,37 @@ public class registrationForm extends javax.swing.JFrame {
             }
         });
         jPanel1.add(accType);
-        accType.setBounds(140, 340, 120, 20);
+        accType.setBounds(120, 300, 120, 20);
 
         jLabel7.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         jLabel7.setText("Email:");
         jPanel1.add(jLabel7);
-        jLabel7.setBounds(140, 180, 80, 20);
+        jLabel7.setBounds(120, 170, 80, 20);
 
         jLabel8.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         jLabel8.setText("First name:");
         jPanel1.add(jLabel8);
-        jLabel8.setBounds(140, 80, 80, 20);
+        jLabel8.setBounds(120, 90, 80, 20);
 
         jLabel9.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         jLabel9.setText("Account type:");
         jPanel1.add(jLabel9);
-        jLabel9.setBounds(60, 340, 80, 20);
+        jLabel9.setBounds(40, 300, 80, 20);
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel1.setText("SIGN-UP");
+        jLabel1.setText("Create Account");
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(100, 30, 80, 30);
+        jLabel1.setBounds(60, 30, 140, 30);
 
         jLabel10.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         jLabel10.setText("Username:");
         jPanel1.add(jLabel10);
-        jLabel10.setBounds(140, 230, 80, 20);
+        jLabel10.setBounds(120, 210, 80, 20);
 
         jLabel11.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         jLabel11.setText("Password:");
         jPanel1.add(jLabel11);
-        jLabel11.setBounds(140, 280, 80, 20);
+        jLabel11.setBounds(120, 250, 80, 20);
 
         jButton1.setText("Register");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -173,22 +174,26 @@ public class registrationForm extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton1);
-        jButton1.setBounds(170, 370, 90, 23);
+        jButton1.setBounds(150, 340, 90, 23);
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/loginIcon.png"))); // NOI18N
         jLabel2.setText("jLabel2");
         jPanel1.add(jLabel2);
-        jLabel2.setBounds(20, 140, 100, 80);
+        jLabel2.setBounds(10, 110, 100, 80);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 422, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -238,8 +243,8 @@ public class registrationForm extends javax.swing.JFrame {
                     }else{
                         JOptionPane.showMessageDialog(null, "Connection Error!");
                     }
-            theloginForm tlf = new theloginForm();        
-            tlf.setVisible(true);
+            adminDashboard adb = new adminDashboard();
+            adb.setVisible(true);
             this.dispose();
 
                 } 
@@ -263,20 +268,21 @@ public class registrationForm extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(registrationForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(adminRegistration.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(registrationForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(adminRegistration.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(registrationForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(adminRegistration.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(registrationForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(adminRegistration.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new registrationForm().setVisible(true);
+                new adminRegistration().setVisible(true);
             }
         });
     }

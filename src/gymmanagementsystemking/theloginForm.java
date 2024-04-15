@@ -26,13 +26,21 @@ public class theloginForm extends javax.swing.JFrame {
         
     }
     
+    static String names;
+    static String status;
+    
     public static boolean loginAcc(String username, String password){
     dbConnector connect = new dbConnector();
     
     try{
         String sql="SELECT * FROM table_user WHERE u_username = '"+username+"'AND u_password = '"+password+"' AND u_status='Active'";
         ResultSet rs = connect.getData(sql);
-        return rs.next();
+        
+        if(rs.next()){
+        status = rs.getString("u_status");
+        names = rs.getString("u_fname");
+        }
+        return true;
    }catch(SQLException ex){
     JOptionPane.showMessageDialog(null, "Database Connection failed");
         System.out.println(""+ex);
@@ -167,26 +175,32 @@ public class theloginForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-    
-        
-       if(loginAcc(user_input.getText(),pass_input.getText())){
-            String userType = getRole(user_input.getText(),pass_input.getText()); // Assuming getRole returns the role of the user
 
-            if (userType.equals("Admin")) {
-                JOptionPane.showMessageDialog(null,"Admin Login Success!");
-                adminDashboard adb = new adminDashboard();
-                adb.setVisible(true);
-                this.dispose();
-            } else if (userType.equals("Trainor")) {
-                JOptionPane.showMessageDialog(null,"User Login Success!");
-                trainorDashboard tdb = new trainorDashboard();
-                tdb.setVisible(true);
-                this.dispose();
+        
+        if(loginAcc(user_input.getText(),pass_input.getText())){
+            String userType = getRole(user_input.getText(),pass_input.getText()); // Assuming getRole returns the role of the user
             
-            }else {
-                JOptionPane.showMessageDialog(null,"Unknown Role! Cannot login."); 
-                return;
-            }
+            
+            switch (userType) {
+                case "Admin":
+                    JOptionPane.showMessageDialog(null,"Admin Login Success!");
+                    adminDashboard adb = new adminDashboard();
+                    adb.name.setText(""+names);
+                    adb.setVisible(true);
+                    this.dispose();
+                    break;
+                case "Trainor":
+                    JOptionPane.showMessageDialog(null,"User Login Success!");
+                    trainorDashboard tdb = new trainorDashboard();
+                    tdb.name.setText(""+names);
+                    tdb.setVisible(true);
+                    this.dispose();
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(null,"Unknown Role! Cannot login.");
+                    return;
+                }
+            
         } else {
             JOptionPane.showMessageDialog(null,"Login Failed!");
         }
