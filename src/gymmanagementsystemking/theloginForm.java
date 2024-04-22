@@ -6,6 +6,7 @@
 package gymmanagementsystemking;
 
 import admin.*;
+import config.Session;
 import config.dbConnector;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -33,14 +34,24 @@ public class theloginForm extends javax.swing.JFrame {
     dbConnector connect = new dbConnector();
     
     try{
-        String sql="SELECT * FROM table_user WHERE u_username = '"+username+"'AND u_password = '"+password+"' AND u_status='Active'";
+        String sql="SELECT * FROM table_user WHERE u_username = '"+username+"'AND u_password = '"+password + "'";
         ResultSet rs = connect.getData(sql);
         
         if(rs.next()){
         status = rs.getString("u_status");
         names = rs.getString("u_fname");
-        }
+        Session sess = Session.getIntance();
+        sess.setUid(rs.getInt("u_id"));
+        sess.setFname(rs.getString("u_fname"));
+        sess.setLname(rs.getString("u_lname"));
+        sess.setEmail(rs.getString("u_email"));
+        sess.setUsername(rs.getString("u_username"));
+        sess.setType(rs.getString("u_account"));
+        sess.setStatus(rs.getString("u_status"));
         return true;
+        }else{
+        return false;
+        }
    }catch(SQLException ex){
     JOptionPane.showMessageDialog(null, "Database Connection failed");
         System.out.println(""+ex);
@@ -178,23 +189,32 @@ public class theloginForm extends javax.swing.JFrame {
 
         
         if(loginAcc(user_input.getText(),pass_input.getText())){
+            
             String userType = getRole(user_input.getText(),pass_input.getText()); // Assuming getRole returns the role of the user
             
             
             switch (userType) {
                 case "Admin":
+                    if(!status.equals("Active")){
+                        JOptionPane.showMessageDialog(null,"Inactive Account, Contact the Admin");
+                        }else{
                     JOptionPane.showMessageDialog(null,"Admin Login Success!");
                     adminDashboard adb = new adminDashboard();
                     adb.name.setText(""+names);
                     adb.setVisible(true);
                     this.dispose();
+                    }
                     break;
                 case "Trainor":
+                    if(!status.equals("Active")){
+                        JOptionPane.showMessageDialog(null,"Inactive Account, Contact the Admin");
+                        }else{
                     JOptionPane.showMessageDialog(null,"User Login Success!");
                     trainorDashboard tdb = new trainorDashboard();
                     tdb.name.setText(""+names);
                     tdb.setVisible(true);
                     this.dispose();
+                    }
                     break;
                 default:
                     JOptionPane.showMessageDialog(null,"Unknown Role! Cannot login.");

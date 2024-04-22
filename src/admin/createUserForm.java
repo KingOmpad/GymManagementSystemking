@@ -5,8 +5,9 @@
  */
 package admin;
 
-import gymmanagementsystemking.*;
 import config.dbConnector;
+import static gymmanagementsystemking.registrationForm.em;
+import static gymmanagementsystemking.registrationForm.usname;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -15,15 +16,16 @@ import javax.swing.JOptionPane;
  *
  * @author SCC
  */
-public class adminRegistration extends javax.swing.JFrame {
+public class createUserForm extends javax.swing.JFrame {
 
     /**
-     * Creates new form registrationForm
+     * Creates new form createUserForm
      */
-    public adminRegistration() {
+    public createUserForm() {
         initComponents();
     }
-    public static String em, usname;
+    
+    
     public boolean duplicateCheck(){
     
     dbConnector dbc = new dbConnector();
@@ -52,6 +54,7 @@ public class adminRegistration extends javax.swing.JFrame {
     }
     
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -77,7 +80,10 @@ public class adminRegistration extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        us = new javax.swing.JComboBox<>();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        id = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -149,14 +155,14 @@ public class adminRegistration extends javax.swing.JFrame {
         jLabel8.setBounds(120, 90, 80, 20);
 
         jLabel9.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
-        jLabel9.setText("Account type:");
+        jLabel9.setText("User Status");
         jPanel1.add(jLabel9);
-        jLabel9.setBounds(40, 300, 80, 20);
+        jLabel9.setBounds(40, 330, 80, 20);
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel1.setText("Create Account");
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(60, 30, 140, 30);
+        jLabel1.setBounds(60, 10, 140, 30);
 
         jLabel10.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         jLabel10.setText("Username:");
@@ -168,42 +174,56 @@ public class adminRegistration extends javax.swing.JFrame {
         jPanel1.add(jLabel11);
         jLabel11.setBounds(120, 250, 80, 20);
 
-        jButton1.setText("Register");
+        jButton1.setText("Add");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
         jPanel1.add(jButton1);
-        jButton1.setBounds(150, 340, 90, 23);
+        jButton1.setBounds(150, 360, 90, 23);
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/loginIcon.png"))); // NOI18N
         jLabel2.setText("jLabel2");
         jPanel1.add(jLabel2);
         jLabel2.setBounds(10, 110, 100, 80);
 
-        jButton2.setText("Back");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        us.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Active", "Pending" }));
+        us.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                usActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2);
-        jButton2.setBounds(30, 340, 55, 23);
+        jPanel1.add(us);
+        us.setBounds(120, 330, 120, 20);
+
+        jLabel12.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
+        jLabel12.setText("Account type:");
+        jPanel1.add(jLabel12);
+        jLabel12.setBounds(40, 300, 80, 20);
+
+        jLabel13.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
+        jLabel13.setText("User ID:");
+        jPanel1.add(jLabel13);
+        jLabel13.setBounds(120, 50, 80, 20);
+
+        id.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                idActionPerformed(evt);
+            }
+        });
+        jPanel1.add(id);
+        id.setBounds(120, 70, 120, 20);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 402, Short.MAX_VALUE)
         );
 
         pack();
@@ -236,36 +256,38 @@ public class adminRegistration extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
         if(fName.getText().isEmpty()||fName.getText().isEmpty()||lName.getText().isEmpty()
-        ||email.getText().isEmpty()||user.getText().isEmpty()||pass.getText().isEmpty()){
+            ||email.getText().isEmpty()||user.getText().isEmpty()||pass.getText().isEmpty()){
             JOptionPane.showMessageDialog(null, "AlL fields are required");
         }else if(pass.getText().length()<8) {
             JOptionPane.showMessageDialog(null, "Password needs 8-16 letters or numbers");
             pass.setText("");
         }else if(duplicateCheck()){
             System.out.println("Duplicate exists!");
-        
+
         }else {
-        
+
             dbConnector dbc = new dbConnector();
-        
-                    if(dbc.insertData("INSERT INTO table_user (u_fname, u_lname, u_email, u_username, u_password, u_account, u_status) VALUES ('"+fName.getText()+"', '"+lName.getText()+"', '"+email.getText()+"', '"+user.getText()+"', '"+pass.getText()+"', '"+accType.getSelectedItem()+"', 'Pending')")){                                        
-                        JOptionPane.showMessageDialog(null, "Inserted Successfully!");
-                    }else{
-                        JOptionPane.showMessageDialog(null, "Connection Error!");
-                    }
+
+            if(dbc.insertData("INSERT INTO table_user (u_fname, u_lname, u_email, u_username, u_password, u_account, u_status) VALUES ('"+fName.getText()+"', '"+lName.getText()+"', '"+email.getText()+"', '"+user.getText()+"', '"+pass.getText()+"', '"+accType.getSelectedItem()+"', 'Pending')")){
+                JOptionPane.showMessageDialog(null, "Inserted Successfully!");
+            }else{
+                JOptionPane.showMessageDialog(null, "Connection Error!");
+            }
             adminDashboard adb = new adminDashboard();
             adb.setVisible(true);
             this.dispose();
 
-                } 
-        
+        }
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        adminDashboard adb = new adminDashboard();
-        adb.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void usActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_usActionPerformed
+
+    private void idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_idActionPerformed
 
     /**
      * @param args the command line arguments
@@ -284,42 +306,44 @@ public class adminRegistration extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(adminRegistration.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(createUserForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(adminRegistration.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(createUserForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(adminRegistration.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(createUserForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(adminRegistration.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(createUserForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new adminRegistration().setVisible(true);
+                new createUserForm().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> accType;
-    private javax.swing.JTextField email;
-    private javax.swing.JTextField fName;
+    public javax.swing.JComboBox<String> accType;
+    public javax.swing.JTextField email;
+    public javax.swing.JTextField fName;
+    public javax.swing.JTextField id;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField lName;
-    private javax.swing.JTextField pass;
-    private javax.swing.JTextField user;
+    public javax.swing.JTextField lName;
+    public javax.swing.JTextField pass;
+    public javax.swing.JComboBox<String> us;
+    public javax.swing.JTextField user;
     // End of variables declaration//GEN-END:variables
 }
